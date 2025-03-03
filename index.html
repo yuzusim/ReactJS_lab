@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
-<body></body>
+<body>
+    <div id="root"></div>
+</body>
 <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-<script>
-    
+<script>   
+    const root = document.getElementById("root");
+    const span = React.createElement(
+        "span", {id:"sexy-span", style: {color: "red"}}, 
+        "Hello I'm a span"
+    );
+    ReactDOM.render(span, root);
+
+    // ReactDOM 에게 span을 어디다 둘 지 알려줘야함 -> root를 가져와야함 
+    // ReactDOM 에게 이야기해줘야함 -> span을 root안에 render 해달라고
+
 </script>
 </html>
