@@ -9,25 +9,38 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-      const [minutes, setMinutes] = React.useState(); // 초기값 설정
+      const [minutes, setMinutes] = React.useState(0); // 초기값 설정
       const onChange = (event) => {
         // 입력된 값을 상태로 업데이트
         setMinutes(event.target.value);
       };
+
+      const reset = () => setMinutes(0);
+
       return (
         <div>
           <h1 className="hi">Super Converter</h1>
-          <label htmlFor="minutes">Minutes</label>
-          <input
-            value={minutes}
-            id="minutes"
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-          />
-          <h4>업데이트 {minutes}</h4>
-          <label htmlFor="hours">Hours</label>
-          <input id="hours" placeholder="Hours" type="number" />
+          <div>
+            <label htmlFor="minutes">Minutes</label>
+            <input
+              value={minutes}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hours">Hours</label>
+            <input
+              value={Math.round(minutes / 60)}
+              id="hours"
+              placeholder="Hours"
+              type="number"
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
