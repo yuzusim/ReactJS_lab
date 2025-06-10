@@ -7,17 +7,17 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text, big }) {
-      console.log(text, big);
+    function Btn({ text, onClick }) {
+      console.log(text);
       return (
         <button
+          onClick={onClick} // 버튼 요소에 클릭 이벤트 핸들러를 연결
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 18 : 16,
           }}
         >
           {text}
@@ -26,10 +26,15 @@
     }
 
     function App() {
+      // value는 부모 컴포넌트인 App의 state
+      // 이 값을 Btn 컴포넌트의 text라는 props로 전달
+      // 그래서 자식인 Btn에서 text를 받아서 버튼에 표시
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text="Save Changes" big={true} />
-          <Btn text="Continue" big={false} />
+          <Btn text={value} onClick={changeValue} />
+          <Btn text="Continue" />
         </div>
       );
     }
