@@ -8,7 +8,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     function Btn({ text, onClick }) {
-      console.log(text);
+      console.log(text, "was rendered");
       return (
         <button
           onClick={onClick} // 버튼 요소에 클릭 이벤트 핸들러를 연결
@@ -25,6 +25,8 @@
       );
     }
 
+    const MemorizeBtn = React.memo(Btn);
+
     function App() {
       // value는 부모 컴포넌트인 App의 state
       // 이 값을 Btn 컴포넌트의 text라는 props로 전달
@@ -33,8 +35,8 @@
       const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text={value} onClick={changeValue} />
-          <Btn text="Continue" />
+          <MemorizeBtn text={value} onClick={changeValue} />
+          <MemorizeBtn text="Continue" />
         </div>
       );
     }
