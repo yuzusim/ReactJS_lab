@@ -3,21 +3,30 @@
   <body>
     <div id="root"></div>
   </body>
+  <!-- 배포할 때 (최종 서비스용) -->
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+
+  <!-- React 개발용 스크립트 (개발 시엔 이걸로 해야 경고 메시지 보임) -->
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <script type="text/babel">
-    function Btn({ text, onClick }) {
-      console.log(text, "was rendered");
+    function Btn({ text, fontSize = 16 }) {
+      // console.log(text, "was rendered");
       return (
         <button
-          onClick={onClick} // 버튼 요소에 클릭 이벤트 핸들러를 연결
+          // onClick={onClick} // 버튼 요소에 클릭 이벤트 핸들러를 연결
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize,
           }}
         >
           {text}
@@ -25,18 +34,17 @@
       );
     }
 
-    const MemorizeBtn = React.memo(Btn);
+    // 타입이 뭐고 어떤떤 모양이어야 하하는지 설명해줄 수 있음
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
 
     function App() {
-      // value는 부모 컴포넌트인 App의 state
-      // 이 값을 Btn 컴포넌트의 text라는 props로 전달
-      // 그래서 자식인 Btn에서 text를 받아서 버튼에 표시
-      const [value, setValue] = React.useState("Save Changes");
-      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <MemorizeBtn text={value} onClick={changeValue} />
-          <MemorizeBtn text="Continue" />
+          <Btn text="Save Changes" fontSize={18} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
